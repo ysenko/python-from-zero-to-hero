@@ -1,4 +1,9 @@
-from twitter_explorer.application import app
+from application import app
+
+
+@app.route('/')
+def index():
+    return 'Hello World!'
 
 
 # Debug only.
