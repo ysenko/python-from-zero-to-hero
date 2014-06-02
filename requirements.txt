@@ -1,4 +1,5 @@
 Flask==0.10.1
+Flask-SQLAlchemy==1.0
 Jinja2==2.7.2
 MarkupSafe==0.23
 PyMySQL==0.6.2
@@ -13,6 +14,6 @@ wsgiref==0.1.2
 
 
 # This is for tests and debug.
-ipdb==0.8
-ipython==2.1.0
+ipdb
+ipython
 nose
