@@ -29,3 +29,18 @@ How to start
 3. Switch to the required step (``git checkout <tag_name>``)
 4. Insall dependencies (``pip install -U -r requirements.txt``)
 5. Do something.
+
+MySQL Setup
+-----------
+1. Create user:
+   ``CREATE USER 'twitter_explorer'@'localhost' IDENTIFIED BY '123456';``
+2. Grant privileges:
+   ```mysql
+   GRANT ALL PRIVILEGES on twitter_explorer.* to 'twitter_explorer'@'localhost';``
+   GRANT ALL PRIVILEGES on twitter_explorer.* to 'twitter_explorer_test'@'localhost'
+   ```
+3. Create DBs:
+   ```mysql
+   CREATE DATABASE twitter_explorer; 
+   CREATE DATABASE twitter_explorer_test;
+   ```
