@@ -10,7 +10,7 @@ Steps
 - [x] step_1 Simple Hello World! application on Flask. 
 - [x] step_2 Configuration.
 - [x] step_3 Tests.
-- [ ] step_4 Static files and Jinja2 templates (+some Twitter Bootstrap). *In Progress*
+- [x] step_4 Static files and Jinja2 templates (+some Twitter Bootstrap).
 - [ ] step_5 DB (MySQL + SQLAlchemy).
 - [ ] step_6 Login and sessions.
 - [ ] step_7 Backend (tweepy module to search for tweets by some criteria).
