@@ -1,6 +1,6 @@
 """Database models."""
 
-from twitter_explorer import db
+from twitter_explorer import db, bcrypt
 
 
 def create():
@@ -26,5 +26,18 @@ class User(db.Model):
         self.email = email
         self.password = password
 
-    def __repr__(self):
-        return '<User %r>' % self.username
+    @property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def password(self, raw_password):
+        self._password = bcrypt.generate_password_hash(raw_password)
+
+    def check_password(self, candidate):
+        """Check whether password matches.
+
+        :Return:
+            True if matches, otherwise False.
+        """
+        return bcrypt.check_password_hash(self._password, candidate)
