@@ -1,4 +1,4 @@
-from application import app
+from application import app, db
 from utils import render_template
 
 
