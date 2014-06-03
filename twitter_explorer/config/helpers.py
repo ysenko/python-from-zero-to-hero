@@ -22,8 +22,7 @@ def load_config(app, env='prod', custom_conf_var=None):
         app.config.from_envvar(custom_conf_var, silent=True)
 
     # Set SQLALCHEMY_DATABASE_URI which is required by Flask-SQLAlchemy.
-    app.config.setdefault('SQLALCHEMY_DATABASE_URI',
-                          _get_sqlalchemy_database_url(app))
+    app.config['SQLALCHEMY_DATABASE_URI'] = _get_sqlalchemy_database_url(app)
 
 
 def _get_sqlalchemy_database_url(app):
