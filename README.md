@@ -12,7 +12,7 @@ Steps
 - [x] step_3 Tests.
 - [x] step_4 Static files and Jinja2 templates (+some Twitter Bootstrap).
 - [x] step_5 DB (MySQL + SQLAlchemy).
-- [ ] step_6 Login and sessions.
+- [x] step_6 Login and sessions.
 - [ ] step_7 Backend (tweepy module to search for tweets by some criteria).
 - [ ] step_8 More backend (Show a list of tweets as long as a link to Google Maps for tweets which has Geo data.
 - [ ] step_9 More backend (do NLP stuff with tweets).
