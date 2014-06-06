@@ -70,3 +70,22 @@ class LoginTestCase(TwitterExplorerTestCase):
         resp = self.app.get('/', follow_redirects=True)
         self.assertIn('Please sign in', resp.data)
         self.assertEqual(200, resp.status_code)
+
+
+class RegistrationTestCase(TwitterExplorerTestCase):
+
+    def test_signup(self):
+        username = 'new_user_4'
+        password = '123'
+        email = 'new_user_4@test.com'
+
+        resp = self.app.post(
+            '/signup',
+            data={
+                'fullname': username,
+                'password': password,
+                'email': email
+            },
+            follow_redirects=True
+        )
+        self.assertIn('Please sign in', resp.data)
