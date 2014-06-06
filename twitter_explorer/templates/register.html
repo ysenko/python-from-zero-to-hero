@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block includes %}
+  <link href="/static/css/signup.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<form class="form-signup" role="form", method="post">
+  <h2 class="form-signup-heading">Sign up</h2>
+  <input type="email" name="email" class="form-control" 
+         placeholder="Email address" required autofocus>
+  <input type="username" name="fullname" class="form-control" 
+         placeholder="Full Name" required>
+  <input type="password" name="password" class="form-control" 
+         placeholder="Password" required>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">
+    Sign up
+  </button>
+</form>
+{% endblock %}
