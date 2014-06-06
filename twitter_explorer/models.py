@@ -3,9 +3,11 @@
 import logging
 import re
 
+from flask.ext.login import UserMixin
 from sqlalchemy.exc import DBAPIError, IntegrityError
+from sqlalchemy.orm.exc import NoResultFound
 
-from twitter_explorer import bcrypt, db, errors
+from twitter_explorer import bcrypt, db, errors, login_manager
 
 
 DUPLICATE_ERROR_PATTERN = re.compile(
@@ -69,13 +71,19 @@ class SafeMixin(object):
             cls._on_complete()
 
 
-class User(db.Model, SafeMixin):
+class User(db.Model, SafeMixin, UserMixin):
     """User model."""
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     _password = db.Column(db.String(256), nullable=False)
+
+    def __str__(self):
+        return (
+            '<User id=%(id)s email=%(email)s username=%(username)s>' %
+            {key: getattr(self, key) for key in ('id', 'username', 'email')}
+        )
 
     def __init__(self, username, email, password):
         self.username = username
@@ -116,4 +124,24 @@ class User(db.Model, SafeMixin):
         user = cls(username, email, raw_password)
         db.session.add(user)
         user.safe_save()
+        logging.info('New user registered: %s', user)
         return user
+
+    @classmethod
+    def get_by_email(cls, email_addr):
+        """Return a user object that corresponds to the given email or None if
+        user was not found.
+        """
+        query = db.session.query(cls).filter(cls.email == email_addr)
+        try:
+            user = query.one()
+            logging.debug('User found: %s', user)
+            return user
+        except NoResultFound:
+            logging.debug('User was not found. Email address is: %s',
+                          email_addr)
+            return None
+
+    def get_id(self):
+        """We identify user by its email address."""
+        return unicode(self.email)

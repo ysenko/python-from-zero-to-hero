@@ -2,6 +2,8 @@
 
 from flask import render_template as flask_render_template, url_for
 
+from twitter_explorer import models
+
 
 def render_template(template, *args, **kwargs):
     kwargs.setdefault('page_title', 'TwitterExplorer v0.1')
@@ -9,3 +11,7 @@ def render_template(template, *args, **kwargs):
                       url_for('static', filename='bootstrap-3.1.1-dist'))
 
     return flask_render_template(template, *args, **kwargs)
+
+
+def user_loader(email_addr):
+    return models.User.get_by_email(email_addr)
