@@ -1,6 +1,9 @@
+import unittest
+
 from .base import TwitterExplorerTestCase
 
 
+@unittest.skip
 class IndexTestCase(TwitterExplorerTestCase):
 
     PATH = '/'

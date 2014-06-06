@@ -47,3 +47,27 @@ class UserModelTestCase(TwitterExplorerTestCase):
         user = User.register(username, email, password)
 
         self.assertFalse(user.check_password(bad_password))
+
+    def test_get_user_by_email(self):
+        username = 'Test 5'
+        email = 'test_5@test.com'
+        password = '123456'
+
+        user = User.register(username, email, password)
+        fetched_user = User.get_by_email(email)
+
+        self.assertEqual(user, fetched_user)
+
+    def test_get_not_existing_user(self):
+        email = 'fake_email@test.com'
+        fetched_user = User.get_by_email(email)
+        self.assertIsNone(fetched_user)
+
+    def test_get_user_id(self):
+        username = 'Test 6'
+        email = 'test_6@test.com'
+        password = '123456'
+
+        user = User.register(username, email, password)
+        self.assertEqual(email, user.get_id())
+        self.assertTrue(isinstance(user.get_id(), unicode))
