@@ -9,6 +9,7 @@ def render_template(template, *args, **kwargs):
     kwargs.setdefault('page_title', 'TwitterExplorer v0.1')
     kwargs.setdefault('bootstrap_path',
                       url_for('static', filename='bootstrap-3.1.1-dist'))
+    kwargs.setdefault('logout_page', url_for('logout'))
 
     return flask_render_template(template, *args, **kwargs)
 

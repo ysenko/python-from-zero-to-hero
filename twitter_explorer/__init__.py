@@ -1,8 +1,7 @@
 from application import app, db, bcrypt, login_manager
 from utils import render_template, user_loader
-from flask.ext.login import login_required
 
-from twitter_explorer.handlers import login
+from twitter_explorer.handlers import login, index
 
 
 login_manager.login_view = 'login'
@@ -13,12 +12,8 @@ login_manager.user_loader(user_loader)
 app.add_url_rule('/login', 'login', login.login, methods=['GET', 'POST'])
 app.add_url_rule('/signup', 'signup', login.register, methods=['GET', 'POST'])
 app.add_url_rule('/logout', 'logout', login.logout, methods=['GET'])
+app.add_url_rule('/', 'index', index.index, methods=['GET'])
 
-@login_required
-def index():
-    return 'Hello World'
-
-app.add_url_rule('/', 'index', index, methods=['GET', 'POST'])
 
 # Debug only.
 if __name__ == '__main__':
