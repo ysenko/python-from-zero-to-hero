@@ -19,4 +19,4 @@ class DBFieldNotUniqueError(TwitterExplorerDBError):
         self.value = value
 
     def __str__(self):
-        return '%(field)s: %(value)s already exists in the DB' % dict(self)
+        return '%(field)s: %(value)s already exists in the DB' % self.__dict__
