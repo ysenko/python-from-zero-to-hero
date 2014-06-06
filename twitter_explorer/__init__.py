@@ -12,6 +12,7 @@ login_manager.user_loader(user_loader)
 # Routes.
 app.add_url_rule('/login', 'login', login.login, methods=['GET', 'POST'])
 app.add_url_rule('/signup', 'signup', login.register, methods=['GET', 'POST'])
+app.add_url_rule('/logout', 'logout', login.logout, methods=['GET'])
 
 @login_required
 def index():

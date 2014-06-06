@@ -1,7 +1,7 @@
 """Handlers responsible for login and authentication."""
 
 from flask import request, url_for, redirect
-from flask.ext.login import login_user
+from flask.ext.login import login_user, login_required, logout_user
 from flask_wtf import Form
 from wtforms import TextField, PasswordField
 from wtforms.validators import DataRequired, Email
@@ -39,6 +39,12 @@ def login():
             'login.html',
             registration_page=url_for('signup')
         )
+
+
+@login_required
+def logout():
+    logout_user()
+    return redirect('login')
 
 
 def register():
