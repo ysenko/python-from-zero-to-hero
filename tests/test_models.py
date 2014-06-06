@@ -28,3 +28,22 @@ class UserModelTestCase(TwitterExplorerTestCase):
             User.register(username, email, password)
             self.assertEquals('email', err.field)
             self.assertEquals(email, err.value)
+
+    def test_check_good_password(self):
+        username = 'Test 3'
+        email = 'test_3@test.com'
+        password = '123456'
+
+        user = User.register(username, email, password)
+
+        self.assertTrue(user.check_password(password))
+
+    def test_check_bad_password(self):
+        username = 'Test 4'
+        email = 'test_4@test.com'
+        password = '123456'
+        bad_password = 'bad password'
+
+        user = User.register(username, email, password)
+
+        self.assertFalse(user.check_password(bad_password))
