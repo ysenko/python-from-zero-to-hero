@@ -10,3 +10,6 @@ DB_PASSWORD = '123456'
 SECRET_KEY = 'Keep this in secret'
 
 WTF_CSRF_ENABLED = False
+
+TWITTER_TOKEN_KEY = 'test_key'
+TWITTER_TOKEN_SECRET = 'test_secret'
