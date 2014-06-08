@@ -21,9 +21,9 @@ class TwitterAuthTestCase(TwitterExplorerTestCase):
     @mock.patch('twitter_explorer.twitter_backend.auth.tweepy.OAuthHandler', autospec=True)
     def test_get_authorized_api(self, auth_handler_mock, api_mock):
         res = auth.get_authorized_api(self.token_key,
-                                      self.token_secret,
-                                      self.app_token_key,
-                                      self.app_token_secret)
+                                       self.token_secret,
+                                       self.app_token_key,
+                                       self.app_token_secret)
 
         auth_handler_mock.assert_called_once_with(
             self.app_token_key,
