@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from flask.ext.script import Manager
 from flask.ext.sqlalchemy import SQLAlchemy
 
