@@ -164,6 +164,20 @@ class TwitterConfig(db.Model, SafeMixin):
         self.token_secret = token_secret
 
     @classmethod
+    def get_by_user(cls, user):
+        """Return Twitter configuration for the given user or if it does not
+        exist None.
+        """
+        query = db.session.query(cls).filter(cls.user_id == user.id)
+        try:
+            config = query.one()
+        except NoResultFound as err:
+            logging.debug('No configuration was found for %s', user)
+            config = None
+
+        return config
+
+    @classmethod
     def update(cls, user, token_key, token_secret):
         """Update (or create) twitter configuration for passed user.
 

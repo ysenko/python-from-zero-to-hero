@@ -102,3 +102,15 @@ class TwitterConfigModelTestCase(TwitterExplorerTestCase):
 
         self.assertEqual(self.key, conf.token_key)
         self.assertEqual(self.secret, conf.token_secret)
+
+    def test_get(self):
+        conf1 = TwitterConfig.update(self.u, self.key, self.secret)
+        conf2 = TwitterConfig.get_by_user(self.u)
+
+        self.assertEquals(conf1, conf2)
+        self.assertEqual(self.key, conf2.token_key)
+        self.assertEqual(self.secret, conf2.token_secret)
+        self.assertEqual(self.u.id, conf2.user_id)
+
+    def test_get_no_existing(self):
+        self.assertIsNone(TwitterConfig.get_by_user(self.u))
