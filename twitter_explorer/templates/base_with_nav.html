@@ -40,7 +40,9 @@
               <li class="active"><a href="#">{{ current_page }}</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="{{ logout_page }}">Logout</a></li>
+              <li><a href="#">Hello, {{ current_user.username }}</a></li>
+              <li><a href="{{ '/config' }}">Configuration</a></li>
+              <li><a href="{{ logout_page }}">Logout</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
