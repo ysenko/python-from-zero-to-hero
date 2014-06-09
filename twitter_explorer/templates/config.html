@@ -1,0 +1,21 @@
+{% extends "base_with_nav.html" %}
+
+{% block body %}
+<form class="form-config" role="form" method="post">
+    <h2 class="form-config-heading">Twitter Configuration for {{ current_user.username }}</h2>
+  {% if twitter_config is not none %}
+  <input type="token_key" name="token_key" class="form-control input-xlarge" 
+         placeholder="access token key" value="{{ twitter_config.token_key }}" required autofocus>
+  <input type="token_secret" name="token_secret" class="form-control input-xxlarge" 
+         placeholder="access token secret" value="{{ twitter_config.token_secret }}" required>
+  {% else %}
+  <input type="token_key" name="token_key" class="form-control input-xlarge" 
+         placeholder="access token key" required autofocus>
+  <input type="token_secret" name="token_secret" class="form-control input-xxlarge" 
+         placeholder="access token secret" required>
+  {% endif %}
+  <button class="btn btn-lg btn-primary btn-block" type="submit">
+    Save
+  </button>
+</form>
+{% endblock %}
