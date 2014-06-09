@@ -145,3 +145,62 @@ class User(db.Model, SafeMixin, UserMixin):
     def get_id(self):
         """We identify user by its email address."""
         return unicode(self.email)
+
+
+class TwitterConfig(db.Model, SafeMixin):
+    """Stores per-user Twitter configuration."""
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('user.id', onupdate='CASCADE', ondelete='CASCADE'),
+        nullable=False)
+    token_key = db.Column(db.TEXT, nullable=False)
+    token_secret = db.Column(db.TEXT, nullable=False)
+
+    def __init__(self, user, token_key, token_secret):
+        self.user_id = user.id
+        self.token_key = token_key
+        self.token_secret = token_secret
+
+    @classmethod
+    def get_by_user(cls, user):
+        """Return Twitter configuration for the given user or if it does not
+        exist None.
+        """
+        query = db.session.query(cls).filter(cls.user_id == user.id)
+        try:
+            config = query.one()
+        except NoResultFound as err:
+            logging.debug('No configuration was found for %s', user)
+            config = None
+
+        return config
+
+    @classmethod
+    def update(cls, user, token_key, token_secret):
+        """Update (or create) twitter configuration for passed user.
+
+        :Parameters:
+            - `user`: Instance of User model
+            - `token_key`: str, Twitter access token key
+            - `token_secret`: str, Twitter access token secret
+        """
+        query = (
+            db.session.query(cls).filter(
+                cls.user_id == user.id).with_for_update()
+        )
+        try:
+            config = query.one()
+            logging.debug('Updating Twitter configuration for %s', user)
+            config.token_key = token_key
+            config.token_secret = token_secret
+
+        except NoResultFound as err:
+            logging.info('Creaing a new Twitter configuration for %s', user)
+            config = cls(user, token_key, token_secret)
+
+        db.session.add(config)
+        cls.safe_save()
+
+        return config

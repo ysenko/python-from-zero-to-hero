@@ -1,1 +1,39 @@
 {% extends "base_with_nav.html" %}
+
+{% block body %}
+<form class="form-search" method="POST">
+  {% if search_query is not none %}
+  <input type="text" name="search_query" class="input-medium search-query" 
+         value="{{ search_query }}">
+  {% else %}
+  <input type="text" name="search_query" class="input-medium search-query">
+  {% endif %}
+  <button type="submit" class="btn">Search</button>
+</form>
+
+<h3 class="text-left">Search Results</h3>
+{% if search_results %}
+<table class="table">
+  <tr>
+    <th>Tweet</th>
+    <th>Author</th>
+    <th>Location</th>
+  </tr>
+  {% for tweet in search_results %}
+  <tr>
+    <td>{{ tweet['text'] }}</td>
+    <td>{{ tweet['author'] }}</td>
+    {% if tweet['geo_data'] is none %}
+    <td>No geo</td>
+    {% else %}
+    <td>
+      <a href="{{ tweet['geo_data'] }}">Link</a>
+    </td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+  <p class="text-center">No tweets found.</p>
+{% endif %}
+{% endblock %}
