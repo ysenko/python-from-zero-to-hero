@@ -1,3 +1,5 @@
+import logging
+
 from flask import Flask
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.login import LoginManager
@@ -19,3 +21,8 @@ bcrypt = Bcrypt(app)
 
 # Flask login manager.
 login_manager = LoginManager(app)
+
+
+# Logging.
+console_handler = logging.StreamHandler()
+app.logger.addHandler(console_handler)
