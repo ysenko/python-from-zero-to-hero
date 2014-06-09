@@ -1,7 +1,7 @@
 from .base import TwitterExplorerTestCase
 
 from twitter_explorer.errors import DBFieldNotUniqueError
-from twitter_explorer.models import User
+from twitter_explorer.models import User, TwitterConfig, db
 
 
 class UserModelTestCase(TwitterExplorerTestCase):
@@ -71,3 +71,34 @@ class UserModelTestCase(TwitterExplorerTestCase):
         user = User.register(username, email, password)
         self.assertEqual(email, user.get_id())
         self.assertTrue(isinstance(user.get_id(), unicode))
+
+
+class TwitterConfigModelTestCase(TwitterExplorerTestCase):
+
+    def setUp(self):
+        super(TwitterConfigModelTestCase, self).setUp()
+
+        self.u = User.register('Test 7', 'test_7@test.com', '123456')
+
+        self.key = '123'
+        self.secret = '456'
+
+    def tearDown(self):
+        db.session.delete(self.u)
+        db.session.commit()
+
+    def test_create(self):
+        conf = TwitterConfig.update(self.u, self.key, self.secret)
+
+        self.assertEqual(self.key, conf.token_key)
+        self.assertEqual(self.secret, conf.token_secret)
+
+    def test_update(self):
+        conf = TwitterConfig.update(self.u, self.key, self.secret)
+
+        self.key = 'new_key'
+        self.secret = 'new_secret'
+        conf = TwitterConfig.update(self.u, self.key, self.secret)
+
+        self.assertEqual(self.key, conf.token_key)
+        self.assertEqual(self.secret, conf.token_secret)
