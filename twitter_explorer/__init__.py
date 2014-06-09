@@ -13,7 +13,7 @@ app.add_url_rule('/login', 'login', login.login, methods=['GET', 'POST'])
 app.add_url_rule('/signup', 'signup', login.register, methods=['GET', 'POST'])
 app.add_url_rule('/logout', 'logout', login.logout, methods=['GET'])
 app.add_url_rule('/config', 'config', config.config, methods=['GET', 'POST'])
-app.add_url_rule('/', 'index', index.index, methods=['GET'])
+app.add_url_rule('/', 'index', index.index, methods=['GET', 'POST'])
 
 
 # Debug only.
