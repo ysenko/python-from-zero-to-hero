@@ -3,10 +3,10 @@
 {% block body %}
 <form class="form-search" method="POST">
   {% if search_query is not none %}
-  <input type="text" name="search-query" class="input-medium search-query" 
+  <input type="text" name="search_query" class="input-medium search-query" 
          value="{{ search_query }}">
   {% else %}
-  <input type="text" name="search-query" class="input-medium search-query">
+  <input type="text" name="search_query" class="input-medium search-query">
   {% endif %}
   <button type="submit" class="btn">Search</button>
 </form>
