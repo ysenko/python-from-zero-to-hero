@@ -25,7 +25,7 @@ def get_authorized_api(access_token_key, access_token_secret, consumer_key, cons
     try:
         api = tweepy.API(tweepy_auth)
         api.me()
-    except tweepy.TweepError as error:
+    except Exception as error:
         api = None
         logging.error('An error occurred while login to Twitter', exc_info=error)
 

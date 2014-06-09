@@ -19,8 +19,11 @@
     <th>Author</th>
     <th>Location</th>
   </tr>
-  {% for tweet in search_resuls %}
+  {% for tweet in search_results %}
   <tr>
+    <td>{{ tweet['text'] }}</td>
+    <td>{{ tweet['author'] }}</td>
+    <td>{{ tweet['geo_data'] }}</td>
   </tr>
   {% endfor %}
 </table>
