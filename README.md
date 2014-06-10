@@ -48,3 +48,9 @@ MySQL Setup
    CREATE DATABASE twitter_explorer; 
    CREATE DATABASE twitter_explorer_test;
    ```
+
+Known Issues
+------------
+1. Typo in env var name TWITER_EXPLORER_CONF -> TWITTER_EXPLORER_CONF. Fixed in `step_7`. 
+2. ``manage.py`` scripts prints weired docstring when shows help for subcommands.
+3. Logging used across modules need to be updated to use the same logger to simplify logging logic.
