@@ -1,6 +1,6 @@
 """Configuration helpers."""
 
-CUSTOM_CONFIG_VAR = 'TWITER_EXPLORER_CONF'
+CUSTOM_CONFIG_VAR = 'TWITTER_EXPLORER_CONF'
 TEST_ENV = 'test'
 PROD_ENV = 'prod'
 
