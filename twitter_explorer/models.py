@@ -10,6 +10,8 @@ from sqlalchemy.orm.exc import NoResultFound
 from twitter_explorer import bcrypt, db, errors, login_manager
 
 
+log = logging.getLogger(__name__)
+
 DUPLICATE_ERROR_PATTERN = re.compile(
     r"Duplicate entry '(?P<value>.*)' for key '(?P<field>.*)'")
 
@@ -29,7 +31,7 @@ class SafeMixin(object):
     @classmethod
     def _general_error_handler(cls, error, re_raise=True):
         """Error handler."""
-        logging.error('Error occured while saving changes to the DB. '
+        log.error('Error occured while saving changes to the DB. '
                       'Rollback process started.', exc_info=error)
         db.session.rollback()
 
@@ -124,7 +126,7 @@ class User(db.Model, SafeMixin, UserMixin):
         user = cls(username, email, raw_password)
         db.session.add(user)
         user.safe_save()
-        logging.info('New user registered: %s', user)
+        log.info('New user registered: %s', user)
         return user
 
     @classmethod
@@ -135,10 +137,10 @@ class User(db.Model, SafeMixin, UserMixin):
         query = db.session.query(cls).filter(cls.email == email_addr)
         try:
             user = query.one()
-            logging.debug('User found: %s', user)
+            log.debug('User found: %s', user)
             return user
         except NoResultFound:
-            logging.debug('User was not found. Email address is: %s',
+            log.debug('User was not found. Email address is: %s',
                           email_addr)
             return None
 
@@ -172,7 +174,7 @@ class TwitterConfig(db.Model, SafeMixin):
         try:
             config = query.one()
         except NoResultFound as err:
-            logging.debug('No configuration was found for %s', user)
+            log.debug('No configuration was found for %s', user)
             config = None
 
         return config
@@ -192,12 +194,12 @@ class TwitterConfig(db.Model, SafeMixin):
         )
         try:
             config = query.one()
-            logging.debug('Updating Twitter configuration for %s', user)
+            log.debug('Updating Twitter configuration for %s', user)
             config.token_key = token_key
             config.token_secret = token_secret
 
         except NoResultFound as err:
-            logging.info('Creaing a new Twitter configuration for %s', user)
+            log.info('Creaing a new Twitter configuration for %s', user)
             config = cls(user, token_key, token_secret)
 
         db.session.add(config)

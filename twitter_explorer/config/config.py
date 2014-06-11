@@ -14,3 +14,5 @@ WTF_CSRF_ENABLED = False
 TWITTER_TOKEN_KEY = 'key'  # You need to redefine this in your local settings.
 TWITTER_TOKEN_SECRET = 'secret'  # You need to redefine this in your local settings.
 TWEETS_IN_RESULT = 50
+
+AFINN_FILE_PATH = 'twitter_explorer/AFINN/AFINN-111.txt'

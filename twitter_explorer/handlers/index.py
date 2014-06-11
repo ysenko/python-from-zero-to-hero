@@ -6,10 +6,14 @@ from flask_wtf import Form
 from wtforms import TextField
 from wtforms.validators import DataRequired
 
+from twitter_explorer import word_scores
 from twitter_explorer.models import TwitterConfig
 from twitter_explorer.twitter_backend import auth, search
 from twitter_explorer.utils import render_template
+from twitter_explorer.sentiment import sentiment_score
 
+
+log = logging.getLogger(__name__)
 
 class SearchForm(Form):
     search_query = TextField('search_query', validators=[DataRequired()])
@@ -35,7 +39,7 @@ def index():
         twitter_conf = TwitterConfig.get_by_user(login.current_user)
 
         if twitter_conf is None:
-            logging.warn('Cannot get twitter config for %s' %
+            log.warn('Cannot get twitter config for %s' %
                          login.current_user)
             return flask.redirect(flask.url_for('config'))
 
@@ -44,7 +48,7 @@ def index():
                                               app_key,
                                               app_secret)
         if twitter_api is None:
-            logging.warn('Cannot get authorized twitter API for %s' %
+            log.warn('Cannot get authorized twitter API for %s' %
                          login.current_user)
             return flask.redirect(flask.url_for('config'))
 
@@ -52,6 +56,10 @@ def index():
             twitter_api,
             search_query,
             count=flask.current_app.config.get('TWEETS_IN_RESULT', 50))
+
+        for tweet in search_results:
+            sent_score = sentiment_score(tweet['text'], word_scores)
+            tweet['sent_score'] = 'Neutral' if not sent_score else 'Positive' if sent_score > 0 else 'Negative'
 
     return render_template('index.html', current_page='Main',
                            search_results=search_results,
