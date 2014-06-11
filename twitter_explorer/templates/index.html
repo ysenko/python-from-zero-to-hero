@@ -18,6 +18,7 @@
     <th>Tweet</th>
     <th>Author</th>
     <th>Location</th>
+    <th>Sentiment</th>
   </tr>
   {% for tweet in search_results %}
   <tr>
@@ -30,6 +31,7 @@
       <a href="{{ tweet['geo_data'] }}">Link</a>
     </td>
     {% endif %}
+    <td>{{ tweet['sent_score'] }}</td>
   </tr>
   {% endfor %}
 </table>

@@ -1,4 +1,4 @@
-from application import app, db, bcrypt, login_manager
+from application import app, db, bcrypt, login_manager, word_scores
 from utils import render_template, user_loader
 
 from twitter_explorer.handlers import login, index, config

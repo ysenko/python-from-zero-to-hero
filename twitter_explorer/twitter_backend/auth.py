@@ -5,6 +5,8 @@ import logging
 import tweepy
 
 
+log = logging.getLogger(__name__)
+
 def get_authorized_api(access_token_key, access_token_secret, consumer_key, consumer_secret):
     """Return an API object initialized with the given token and secret.
 
@@ -19,7 +21,7 @@ def get_authorized_api(access_token_key, access_token_secret, consumer_key, cons
     :Return:
         Instance of tweepy.API or None in case of invalid credentials.
     """
-    logging.info('Initializing Twitter API.')
+    log.info('Initializing Twitter API.')
     tweepy_auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     tweepy_auth.set_access_token(access_token_key, access_token_secret)
     try:
@@ -27,10 +29,10 @@ def get_authorized_api(access_token_key, access_token_secret, consumer_key, cons
         api.me()
     except Exception as error:
         api = None
-        logging.error('An error occurred while login to Twitter', exc_info=error)
+        log.error('An error occurred while login to Twitter', exc_info=error)
 
     if api is not None:
-        logging.info('Twitter API is ready.')
+        log.info('Twitter API is ready.')
 
     return api
 
