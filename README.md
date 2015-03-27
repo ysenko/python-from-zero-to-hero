@@ -7,7 +7,7 @@ This is an example of Python application which allows to search twits in Twitter
 Steps
 -----
 - [x] step_0 Project structure and base requirements.
-- [x] step_1 Simple Hello World! application on Flask. 
+- [x] step_1 Simple Hello World! application on Flask.
 - [x] step_2 Configuration.
 - [x] step_3 Tests.
 - [x] step_4 Static files and Jinja2 templates (+some Twitter Bootstrap).
@@ -16,9 +16,6 @@ Steps
 - [x] step_7 Backend (tweepy module to search for tweets by some criteria).
 - [ ] step_8 More backend (Show a list of tweets as long as a link to Google Maps for tweets which has Geo data.
 - [ ] step_9 More backend (do NLP stuff with tweets).
-
-*NOTE*: steps 7-9 can be implemented as a part of Flask app or as a separate
-processes/threads (we can use Celery).
 
 Each sep is tegged wiht ``step_n`` tag where `n` is a number of step.
 
@@ -36,21 +33,25 @@ MySQL Setup
    ```
    CREATE USER 'twitter_explorer'@'localhost' IDENTIFIED BY '123456';
    ```
-   
+
 2. Grant privileges:
-   ```   
+   ```
    GRANT ALL PRIVILEGES on twitter_explorer.* to 'twitter_explorer'@'localhost';
    GRANT ALL PRIVILEGES on twitter_explorer_test.* to 'twitter_explorer'@'localhost'
-   ```   
-   
+   ```
+
 3. Create DBs:
-   ```   
-   CREATE DATABASE twitter_explorer; 
+   ```
+   CREATE DATABASE twitter_explorer;
    CREATE DATABASE twitter_explorer_test;
    ```
 
 Known Issues
 ------------
-1. Typo in env var name TWITER_EXPLORER_CONF -> TWITTER_EXPLORER_CONF. Fixed in `step_7`. 
+1. Typo in env var name TWITER_EXPLORER_CONF -> TWITTER_EXPLORER_CONF. Fixed in `step_7`.
 2. ``manage.py`` scripts prints weired docstring when shows help for subcommands.
 3. Logging used across modules need to be updated to use the same logger to simplify logging logic.
+
+FAQ
+---
+https://docs.google.com/document/d/1r0y6JMtTcgHIqTq0JpWY1gv3hFqlR3qroLa42Ok9n2E/edit
