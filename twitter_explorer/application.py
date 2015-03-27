@@ -1,7 +1,7 @@
 from flask import Flask
 
 
-CUSTOM_CONFIG_VAR = 'TWITER_EXPLORER_CONF'
+CUSTOM_CONFIG_VAR = 'TWITTER_EXPLORER_CONF'
 
 
 def load_config(app_obj, custom_conf_var=None):
