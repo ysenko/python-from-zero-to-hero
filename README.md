@@ -37,7 +37,7 @@ MySQL Setup
 2. Grant privileges:
    ```
    GRANT ALL PRIVILEGES on twitter_explorer.* to 'twitter_explorer'@'localhost';
-   GRANT ALL PRIVILEGES on twitter_explorer_test.* to 'twitter_explorer'@'localhost'
+   GRANT ALL PRIVILEGES on twitter_explorer_test.* to 'twitter_explorer'@'localhost';
    ```
 
 3. Create DBs:
@@ -48,9 +48,8 @@ MySQL Setup
 
 Known Issues
 ------------
-1. Typo in env var name TWITER_EXPLORER_CONF -> TWITTER_EXPLORER_CONF. Fixed in `step_7`.
-2. ``manage.py`` scripts prints weired docstring when shows help for subcommands.
-3. Logging used across modules need to be updated to use the same logger to simplify logging logic.
+1. ``manage.py`` scripts prints weired docstring when shows help for subcommands.
+2. Logging used across modules need to be updated to use the same logger to simplify logging logic.
 
 FAQ
 ---
